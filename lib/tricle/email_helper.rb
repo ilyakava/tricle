@@ -78,5 +78,20 @@ module Tricle
       attachment_url = attachments[attachment_title].url
       image_tag(attachment_url).html_safe
     end
+
+    def mailview_safe_sparkline(metric)
+      # http://bit.ly/1qnR55Y
+      values = metric.weekly_values(13)
+      blob = Sparklines.plot(values,
+        dot_size: 4,
+        height: 30,
+        line_color: '#4A8FED',
+        step: 30
+      )
+      attachment_title = "#{metric.title.underscore}.png"
+      attachments.inline[attachment_title] = blob
+      attachment_url = attachments[attachment_title].url
+      "<img src=\"?part=#{attachment_title}\">".html
+    end
   end
 end

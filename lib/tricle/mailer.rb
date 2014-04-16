@@ -42,6 +42,21 @@ module Tricle
       premailer(message)
     end
 
+    def mailview_safe_email(options = {})
+      options = {
+        subject: self.subject
+      }.merge(options)
+
+      @report = self.report
+
+      message = mail(options) do |format|
+        format.html { render 'templates/mailview_safe_email' }
+        format.text { render 'templates/email' }
+      end
+
+      premailer(message)
+    end
+
     class << self
       def inherited(klass)
         klass.report = Tricle::Presenters::Report.new
