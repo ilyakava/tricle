@@ -18,8 +18,11 @@ class TestMetric < Tricle::Metric
 
     data.each do |row|
       start_on = Date.parse(row[0])
+      end_on = Date.parse(row[1])
       val = row[2].to_i
-      self.data_by_start_on.add(start_on, val)
+      (start_on...end_on).each do |day|
+        self.data_by_start_on.add(day, val)
+      end
     end
   end
 

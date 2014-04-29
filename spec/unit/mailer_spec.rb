@@ -29,8 +29,8 @@ describe Tricle::Mailer do
 
     it "should include the Metric values in the HTML part" do
       markup.should include('Test Metric')
-      markup.should match(/\b62\b/) # last week
-      markup.should match(/\b787\b/) # total
+      markup.should match(/\b434\b/) # last week cumulative
+      markup.should match(/\b5,509\b/) # TestMetric.new.total
     end
 
     it "should link to the Issues page in the text part" do
